@@ -1,5 +1,5 @@
 output "aws_instance_public_dns" {
-  value       = aws_instance.nginx1.public_dns
+  value       = "http://${aws_instance.nginx1.public_dns}:${var.security_group_http_port_number}"
   description = "Public DNS hostname of the EC2 instance"
 }
 
