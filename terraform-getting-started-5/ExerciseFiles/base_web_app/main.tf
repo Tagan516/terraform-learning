@@ -4,14 +4,7 @@ It includes the necessary networking components such as a VPC, subnet, internet 
 AWS credentials are required to apply this configuration and can be set using environment variables or the AWS CLI.
 */
 
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0"
-    }
-  }
-}
+
 
 ##################################################################################
 # PROVIDERS
