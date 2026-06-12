@@ -37,18 +37,19 @@ data "aws_ssm_parameter" "amzn2_linux" {
 resource "aws_vpc" "app" {
   cidr_block           = var.vpc_cidr_block
   enable_dns_hostnames = var.vpc_enable_dns_hostnames
-
+  tags = local.comman_tags
 }
 
 resource "aws_internet_gateway" "app" {
   vpc_id = aws_vpc.app.id
-
+  tags = local.comman_tags
 }
 
 resource "aws_subnet" "public_subnet1" {
   cidr_block              = var.subnet_cidr_block
   vpc_id                  = aws_vpc.app.id
   map_public_ip_on_launch = var.subnet_map_public_ip_on_launch
+  tags = local.comman_tags
 }
 
 # ROUTING #
@@ -59,6 +60,8 @@ resource "aws_route_table" "app" {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.app.id
   }
+
+  tags = local.comman_tags
 }
 
 resource "aws_route_table_association" "app_subnet1" {
@@ -87,6 +90,7 @@ resource "aws_security_group" "nginx_sg" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+  tags = local.comman_tags
 }
 
 # INSTANCES #
@@ -96,7 +100,8 @@ resource "aws_instance" "nginx1" {
   subnet_id              = aws_subnet.public_subnet1.id
   vpc_security_group_ids = [aws_security_group.nginx_sg.id]
   user_data_replace_on_change = true
-
+  tags = local.comman_tags
+  
   user_data = <<EOF
 #! /bin/bash
 sudo amazon-linux-extras install -y nginx1

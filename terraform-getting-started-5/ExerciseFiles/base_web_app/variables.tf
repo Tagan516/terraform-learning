@@ -37,3 +37,24 @@ variable "ec2_instance_type" {
   description = "The EC2 instance type to use"
   type        = string
 }
+
+variable "company" {
+  description = "The name of the company"
+  type        = string
+  default     = "learnomantics"
+}
+
+variable "project" {
+  description = "The name of the project"
+  type        = string
+}
+
+variable "environment" {
+  description = "The name of the environment"
+  type        = string
+}
+
+variable "billing_code" {
+  description = "The billing code to use for cost allocation"
+  type        = string
+}
